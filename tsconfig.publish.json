@@ -1,0 +1,24 @@
+{
+  // "include": ["src/**/*", "test/**/*"],
+  "compilerOptions": {
+    "strict": true,
+    "lib": ["ES2017", "DOM"],
+    "module": "commonjs",
+    "target": "ES2017",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "outDir": "./dist",
+    // below are for build process visibility
+    "declaration": true,
+    "noImplicitAny": true,
+    // trying this out
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
