@@ -1,6 +1,6 @@
 {
   "name": "candb-client-typescript",
-  "version": "0.0.0-alpha.1",
+  "version": "0.0.0-alpha.2",
   "description": "TypeScript client for CanDB",
   "main": "dist/index.js",
   "scripts": {
@@ -40,11 +40,12 @@
     "*.{ts,css,md}": "prettier --write"
   },
   "dependencies": {
-    "@dfinity/agent": "^0.11.1",
-    "@dfinity/auth-client": "^0.11.1",
-    "@dfinity/candid": "^0.11.1",
-    "@dfinity/identity": "^0.11.2",
-    "@dfinity/principal": "^0.11.1",
+    "@dfinity/agent": "^0.20.2",
+    "@dfinity/auth-client": "^0.20.2",
+    "@dfinity/candid": "^0.20.2",
+    "@dfinity/identity": "^0.20.2",
+    "@dfinity/identity-secp256k1": "^0.20.2",
+    "@dfinity/principal": "^0.20.2",
     "bip39": "^3.0.4",
     "fs": "^0.0.1-security",
     "hdkey": "^2.0.1",

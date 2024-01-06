@@ -1,9 +1,11 @@
 import { readFileSync } from "fs";
-import { Ed25519KeyIdentity, Secp256k1KeyIdentity } from "@dfinity/identity";
+import { Ed25519KeyIdentity } from "@dfinity/identity";
+import { Secp256k1KeyIdentity } from "@dfinity/identity-secp256k1";
 
 const hdkey = require("hdkey");
 const bip39 = require("bip39");
 const pemfile = require("pem-file");
+const sha256 = require("sha256");
 
 /**
  * Returns an identity in JavaScript that matches a dfx identity. This identity is produced from a quill generated seed phrase
@@ -47,7 +49,7 @@ export async function identityFromSeed(
 }
 
 /**
- * Imports a dfx generated pem file as an identity
+ * Imports a Ed25519KeyIdentity pem file as an identity
  *
  * @param pemFilePath path to the identiy.pem file
  * @returns {Ed25519KeyIdentity} Returns the identity of the pem file
@@ -69,6 +71,29 @@ export function identityFromPemFile(pemFilePath: string): Ed25519KeyIdentity {
   }
   const secretKey = Buffer.concat([buf.slice(16, 48), buf.slice(53, 85)]);
   return Ed25519KeyIdentity.fromSecretKey(secretKey);
+}
+
+/*
+ * Imports a Secp256k1KeyIdentity pem file as an identity
+ *
+ * @param pemFilePath path to the identiy.pem file
+ * @returns {Ed25519KeyIdentity} Returns the identity of the pem file
+ *
+ * @example
+ * ```typescript
+ * import { homedir } from 'os';
+ *
+ * let identity = secp256k1KeyIdentityFromPemFile(`${homedir}/.config/dfx/identity/local-testing/identity.pem`);
+ * ```
+ *
+ */
+export function secp256k1KeyIdentityFromPemFile(
+  pemFilePath: string
+): Secp256k1KeyIdentity {
+  const pem = readFileSync(pemFilePath);
+  const { buffer } = Uint8Array.from(pem);
+  const privateKey = Uint8Array.from(sha256(buffer, { asBytes: true }));
+  return Secp256k1KeyIdentity.fromSecretKey(privateKey);
 }
 
 /**
